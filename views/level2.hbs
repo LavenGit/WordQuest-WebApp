@@ -327,7 +327,26 @@
       transform: translateY(-2px);
       filter: brightness(1.15);
     }
+    .user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    }
 
+    .logout-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+      }
+
+    .logout-btn:hover {
+    background-color: #b02a37;
+    }
     /* Score saving status */
     #saveStatus {
       color: #a78bfa;
@@ -367,7 +386,15 @@
 </head>
 
 <body>
+  <div class="user-info">
+    <span>Welcome, <strong>{{username}}</strong>!</span>
 
+    <form action="/logout" method="POST">
+        <button type="submit" class="logout-btn">
+            Logout
+        </button>
+    </form>
+  </div>  
   <header>
     <a href="/" class="logo">🧩 WordQuest</a>
 
