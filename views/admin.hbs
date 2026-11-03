@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard | WordQuest</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #100b23;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+header {
+  padding: 24px 7%;
+  background: #1b1433;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h1 { color: #c4b5fd; }
+main { max-width: 1050px; margin: 45px auto; padding: 20px; }
+.card {
+  background: #211936;
+  border: 1px solid #45365e;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 15px; border-bottom: 1px solid #45365e; }
+th { color: #c4b5fd; }
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #655585;
+  border-radius: 8px;
+  background: #130e25;
+  color: white;
+  margin-bottom: 20px;
+}
+button {
+  background: #8b5cf6;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+button:hover { background: #7c3aed; }
+.error { color: #fca5a5; }
+</style>
+</head>
+<body>
+
+<header>
+  <strong>WordQuest Admin</strong>
+  <a href="/" style="color:#c4b5fd">Home</a>
+</header>
+
+<main>
+  <h1>User Management</h1>
+  <p>View registered accounts and account roles.</p>
+
+  <div class="card">
+    <h2>Registered Users: <span id="total">0</span></h2>
+    <input type="search" id="search" placeholder="Search usernames...">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Account Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="usersTable"></tbody>
+    </table>
+
+    <p id="message" role="status"></p>
+  </div>
+</main>
+
+<script>
+let users = [];
+
+
+function renderUsers() {
+    const query = document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const tbody = document.getElementById("usersTable");
+    tbody.replaceChildren();
+
+    users
+        .filter(user =>
+            user.userid.toLowerCase().includes(query)
+        )
+        .forEach(user => {
+            const row = document.createElement("tr");
+
+            const username = document.createElement("td");
+            username.textContent = user.userid;
+
+            const role = document.createElement("td");
+            role.textContent = user.role;
+
+            const actions = document.createElement("td");
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete-btn";
+
+            // Prevent the current admin from deleting themselves
+            if (user.userid === "{{username}}") {
+                deleteButton.disabled = true;
+                deleteButton.textContent = "Current Admin";
+            } else {
+                deleteButton.addEventListener("click", () => {
+                    deleteUser(user.userid);
+                });
+            }
+
+            actions.appendChild(deleteButton);
+            row.append(username, role, actions);
+            tbody.appendChild(row);
+        });
+}
+
+async function deleteUser(userid) {
+    const confirmed = confirm(
+        `Are you sure you want to delete "${userid}"?\n\n` +
+        "This will permanently delete their account and scores."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(
+            `/api/admin/users/${encodeURIComponent(userid)}`,
+            {
+                method: "DELETE",
+                credentials: "same-origin"
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || "Deletion failed.");
+        }
+
+        // Refresh the user list
+        await loadUsers();
+
+        document.getElementById("message").textContent =
+            `Account "${userid}" deleted successfully.`;
+
+    } catch (error) {
+        document.getElementById("message").textContent =
+            error.message;
+    }
+}
+
+
+async function loadUsers() {
+  try {
+    const response = await fetch("/users", {
+      credentials: "same-origin",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to load users. Admin access required.");
+    }
+
+    users = await response.json();
+    document.getElementById("total").textContent = users.length;
+    renderUsers();
+  } catch (error) {
+    const message = document.getElementById("message");
+    message.textContent = error.message;
+    message.className = "error";
+  }
+}
+
+document.getElementById("search").addEventListener("input", renderUsers);
+loadUsers();
+</script>
+
+</body>
+</html>

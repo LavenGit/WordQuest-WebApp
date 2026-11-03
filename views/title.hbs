@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WordQuest | Create Account</title>
+
+<style>
+:root {
+  --bg: #0f1025;
+  --card: #1c1d3b;
+  --primary: #a78bfa;
+  --text: #f8fafc;
+  --muted: #a1a1bd;
+  --success: #4ade80;
+  --danger: #fb7185;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, #39245d, transparent 40%),
+    radial-gradient(circle at 90% 85%, #163456, transparent 40%),
+    var(--bg);
+  color: var(--text);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 7%;
+  border-bottom: 1px solid #ffffff15;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 22px;
+}
+
+nav a:hover {
+  color: white;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 55px 20px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 38px;
+  background: linear-gradient(155deg, #252647, #191a35);
+  border: 1px solid #ffffff20;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px #00000040;
+  animation: fadeIn .6s ease;
+}
+
+.badge {
+  display: inline-block;
+  color: #c4b5fd;
+  background: #a78bfa20;
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: .8rem;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+label {
+  display: block;
+  font-size: .9rem;
+  margin-bottom: 9px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #424366;
+  border-radius: 12px;
+  background: #11122a;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: .2s;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px #a78bfa25;
+}
+
+.password-wrapper {
+  display: flex;
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 75px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.helper {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: 7px;
+}
+
+.error {
+  color: var(--danger);
+  font-size: .8rem;
+  margin-top: 7px;
+  min-height: 16px;
+}
+
+.strength-track {
+  width: 100%;
+  height: 7px;
+  background: #333453;
+  border-radius: 10px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.strength-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 10px;
+  transition: width .3s, background .3s;
+}
+
+.strength-label {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #8b5cf6, #6366f1);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-link {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 25px;
+}
+
+.login-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .register-card {
+    padding: 26px 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="/" class="logo">🧩 WordQuest</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+  </nav>
+</header>
+
+<main>
+<section class="register-card">
+
+  <div class="badge">JOIN THE CHALLENGE</div>
+
+  <h1>Create your account</h1>
+
+  <p class="subtitle">
+    Join WordQuest, solve puzzles, and track your progress.
+  </p>
+
+  <form id="registerForm" action="/addUser" method="POST">
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Choose a username"
+        minlength="3"
+        maxlength="20"
+        autocomplete="username"
+        required
+      >
+      <div class="helper">
+        3–20 characters, letters, numbers, or underscores.
+      </div>
+      <div class="error" id="usernameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+
+      <div class="password-wrapper">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Create a password"
+          minlength="12"
+          maxlength="128"
+          autocomplete="new-password"
+          required
+        >
+        <button type="button" class="toggle-password"
+                data-target="password">Show</button>
+      </div>
+
+      <div class="strength-track">
+        <div class="strength-fill" id="strengthFill"></div>
+      </div>
+
+      <div class="strength-label" id="strengthLabel">
+        Password strength
+      </div>
+
+      <div class="error" id="passwordError"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+
+      <div class="password-wrapper">
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Repeat your password"
+          autocomplete="new-password"
+          required
+        >
+        <button type="button" class="toggle-password"
+                data-target="confirmPassword">Show</button>
+      </div>
+
+      <div class="error" id="confirmError"></div>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">
+      Create Account →
+    </button>
+
+  </form>
+
+  <div class="login-link">
+    Already have an account?
+    <a href="/login">Sign in</a>
+  </div>
+
+</section>
+</main>
+
+<script>
+const form = document.getElementById("registerForm");
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+
+const strengthFill = document.getElementById("strengthFill");
+const strengthLabel = document.getElementById("strengthLabel");
+
+// Show / hide password
+document.querySelectorAll(".toggle-password").forEach(button => {
+  button.addEventListener("click", () => {
+    const input = document.getElementById(button.dataset.target);
+
+    const isHidden = input.type === "password";
+    input.type = isHidden ? "text" : "password";
+    button.textContent = isHidden ? "Hide" : "Show";
+  });
+});
+
+// Simple password strength indicator
+function calculateStrength(value) {
+  let score = 0;
+
+  if (value.length >= 12) score++;
+  if (value.length >= 16) score++;
+  if (/[a-z]/.test(value) && /[A-Z]/.test(value)) score++;
+  if (/[0-9]/.test(value)) score++;
+  if (/[^a-zA-Z0-9]/.test(value)) score++;
+
+  return score;
+}
+
+function updateStrength() {
+  const value = password.value;
+  const score = calculateStrength(value);
+
+  if (!value) {
+    strengthFill.style.width = "0%";
+    strengthLabel.textContent = "Password strength";
+    return;
+  }
+
+  const percentage = (score / 5) * 100;
+  strengthFill.style.width = `${percentage}%`;
+
+  if (score <= 2) {
+    strengthFill.style.background = "#fb7185";
+    strengthLabel.textContent = "Weak password";
+  } else if (score <= 3) {
+    strengthFill.style.background = "#fbbf24";
+    strengthLabel.textContent = "Moderate password";
+  } else {
+    strengthFill.style.background = "#4ade80";
+    strengthLabel.textContent = "Strong password";
+  }
+}
+
+password.addEventListener("input", updateStrength);
+
+// Validate username
+function validateUsername() {
+  const value = username.value.trim();
+  const valid = /^[a-zA-Z0-9_]{3,20}$/.test(value);
+
+  document.getElementById("usernameError").textContent =
+    valid ? "" : "Use 3–20 letters, numbers, or underscores.";
+
+  return valid;
+}
+
+// Validate password
+function validatePassword() {
+  const valid = password.value.length >= 12 &&
+                password.value.length <= 128;
+
+  document.getElementById("passwordError").textContent =
+    valid ? "" : "Password must be 12–128 characters.";
+
+  return valid;
+}
+
+// Confirm password
+function validateConfirmation() {
+  const valid = password.value === confirmPassword.value &&
+                confirmPassword.value.length > 0;
+
+  document.getElementById("confirmError").textContent =
+    valid ? "" : "Passwords do not match.";
+
+  return valid;
+}
+
+username.addEventListener("input", validateUsername);
+password.addEventListener("input", () => {
+  validatePassword();
+  if (confirmPassword.value) validateConfirmation();
+});
+confirmPassword.addEventListener("input", validateConfirmation);
+
+// Validate before submitting
+form.addEventListener("submit", (event) => {
+  const validUsername = validateUsername();
+  const validPassword = validatePassword();
+  const validConfirmation = validateConfirmation();
+
+  if (!validUsername || !validPassword || !validConfirmation) {
+    event.preventDefault();
+  }
+});
+</script>
+
+</body>
+</html>

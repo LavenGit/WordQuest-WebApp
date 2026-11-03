@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | WordQuest</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Rubik', sans-serif;
+      color: #fff;
+      background: #0d0820;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.25), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15), transparent 35%);
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    nav {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 24px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #a78bfa;
+    }
+
+    .nav-link {
+      color: #d1c4f5;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    /* Main Layout */
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px 80px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(30, 22, 58, 0.85);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      border-radius: 24px;
+      padding: 42px 36px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(18px);
+      animation: fadeUp 0.7s ease;
+    }
+
+    .icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      margin: 0 auto 22px;
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #aaa0c7;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #d8cef5;
+      margin-bottom: 9px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 12px;
+      border: 1px solid #453660;
+      background: #17102e;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: 0.25s;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #77708f;
+    }
+
+    .input-wrapper input:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.13);
+    }
+
+    .password-input {
+      padding-right: 65px !important;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #b9aed6;
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 7px;
+    }
+
+    .toggle-password:hover {
+      color: #fff;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #8b5cf6, #a855f7);
+      color: white;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.25s;
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.25);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+    }
+
+    .signup-text {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 13px;
+      color: #aaa0c7;
+    }
+
+    .signup-text a {
+      color: #c4b5fd;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 26px;
+      color: #6f648e;
+      font-size: 11px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        padding: 20px 6%;
+      }
+
+      .login-container {
+        padding: 32px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="/" class="logo">Word<span>Quest.</span></a>
+    <a href="/title" class="nav-link">Create Account</a>
+  </nav>
+
+  <main>
+    <div class="login-container">
+
+      <div class="icon">🎮</div>
+
+      <h1>Welcome Back!</h1>
+
+      <p class="subtitle">
+        Ready for another challenge?<br>
+        Log in to continue your WordQuest journey.
+      </p>
+
+      <form action="/login" method="post">
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              autocomplete="username"
+              maxlength="20"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="password-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              id="togglePassword"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn">
+          Login to WordQuest
+        </button>
+
+      </form>
+
+      <p class="signup-text">
+        Don't have an account?
+        <a href="/title">Create an account</a>
+      </p>
+
+      <p class="footer-text">
+        Challenge your mind. Beat your best time.
+      </p>
+
+    </div>
+  </main>
+
+  <script>
+    const toggleButton = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    toggleButton.addEventListener("click", () => {
+      const isHidden = passwordInput.type === "password";
+
+      passwordInput.type = isHidden ? "text" : "password";
+      toggleButton.textContent = isHidden ? "Hide" : "Show";
+      toggleButton.setAttribute("aria-pressed", String(isHidden));
+      toggleButton.setAttribute(
+        "aria-label",
+        isHidden ? "Hide password" : "Show password"
+      );
+    });
+  </script>
+
+</body>
+</html>
+
