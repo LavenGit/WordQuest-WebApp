@@ -173,4 +173,4 @@ The following local files are excluded from GitHub:
 
 ---
 
-⭐ **If you enjoyed exploring WordQuest, consider starring the repository!**
+Hope you enjoy it
